@@ -4,8 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
+    <link rel="stylesheet" href="css/head.css">
 </head>
 <body>
-    <header>1</header>
+    <header>
+        <div class="logo">
+            <a href="index.php"><img src="images/logo.png" alt="Lỗi"></a>
+        </div>
+        <div class="search">
+            <form action="search.php" method="get">
+                <input type="text" name="search" id="search" placeholder="Tìm kiếm...">
+                <button type="submit">Tìm kiếm</button>
+            </form>
+        </div>
+        <div class="cart">
+            <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
+        </div>
+        <div class="login">
+            <a href="login.php">Đăng nhập</a>
+        </div>
+        <div class="logout">
+            <a href="logout.php">Đăng xuất</a>
+        </div>
+    </header>
 </body>
 </html>
