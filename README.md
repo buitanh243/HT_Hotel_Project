@@ -20,10 +20,10 @@ Analytics Dashboard: Visualize hotel performance metrics.
 
 Technologies Used
 
-Frontend: HTML, CSS, JavaScript (React/Angular/Vue.js)
+Frontend: HTML, CSS, JavaScript 
 
-Backend: Node.js/Express or Python/Django/Flask
+Backend: PHP
 
-Database: MySQL/PostgreSQL or MongoDB
+Database: MySQL
 
-Other Tools: REST APIs, Authentication (JWT/OAuth), Cloud Hosting (AWS/Heroku)
+Other Tools: Bootstrap 5.0, Fontawesome, SweerAllert2
