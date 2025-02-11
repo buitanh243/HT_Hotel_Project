@@ -34,6 +34,10 @@
         margin: 30px;
     }
 
+    footer p {
+        font-size: 20px;
+        color: white;
+    }
 
     .map_canvas {
         padding-top: 20px;

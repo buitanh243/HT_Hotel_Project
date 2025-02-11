@@ -24,9 +24,9 @@
             </div>
             <div class="menu">
                 <a href="index.php">Trang chủ</a>
-                <a href="room.php">Đặt phòng</a>
+                <a href="index.php#card_room">Đặt phòng</a>
                 <a href="about.php">Giới thiệu</a>
-                <a href="contact.php">Liên hệ</a>
+                <a href=".#footer">Liên hệ</a>
             </div>
             <!-- <div class="search">
                 <form action="/search.php" method="get">
@@ -39,15 +39,15 @@
                 <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
             </div> -->
 
-            <div class="auth">
+            <!-- <div class="auth">
                 <?php 
-                    if (isset($_POST["username"]) && isset($_POST["username"])) {
-                        echo "<a href='logout.php'>Đăng xuất</a>";
-                    } else {
-                        echo "<a href='login.php'>Đăng nhập</a>";
-                    }
+                    // if (isset($_POST["username"]) && isset($_POST["username"])) {
+                    //     echo "<a href='logout.php'>Đăng xuất</a>";
+                    // } else {
+                    //     echo "<a href='login.php'>Đăng nhập</a>";
+                    // }
                 ?>
-            </div>
+            </div> -->
         </nav>
 
     </header>

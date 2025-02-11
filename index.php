@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +25,15 @@
 
   include_once __DIR__ . "/connect/connect.php";
 
-  $sql = "SELECT * FROM phong AS p JOIN img_room AS i ON p.img_id = i.img_id;";
+  $sql = "SELECT p.*, i.*
+          FROM phong AS p
+          JOIN img_room AS i ON p.phong_id = i.phong_id
+          WHERE i.img_id = (
+              SELECT MIN(img_id)
+              FROM img_room
+              WHERE phong_id = p.phong_id
+          );
+          ";
 
   $result = mysqli_query($conn, $sql);
   $arrRoom = [];
@@ -81,50 +88,56 @@
       </div>
 
       <div class="room-product">
-        <?php 
+        <?php
         $count = 0;
-          foreach ($arrRoom as $row) { 
-            if ($count == 2) {
-                echo '</div><div class="room-product">';
-                $count = 0;
-            }
+        foreach ($arrRoom as $row) {
+          if ($count == 2) {
+            echo '</div><div class="room-product">';
+            $count = 0;
+          }
         ?>
-        <div class="card_room">
-          <div class="card_form">
-            <img src="<?= $row['url'] ?>" alt="Lỗi">
-            <span><?php if ($row['status'] == 'Y') { echo 'Còn phòng'; } else {echo 'Tạm hết phòng';}?> </span>
-          </div>
-          <div class="card_data">
-            <div style="display: flex" class="data">
-              <div class="text">
-                <label class="text_m"><?= $row['phong_ten']?></label>
-                <div class="cube text_s">
-                  <label class="side front">Mô tả: <?= $row['phong_mota']?> </label>
-                  <label class="side top">Giá: <?= number_format($row['phong_gia'], 0,',','.')?>&#8363</label>
+          <div class="card_room" id="card_room">
+            <div class="card_form">
+              <img src="<?= $row['url'] ?>" alt="Lỗi">
+              <span><?php if ($row['status'] == 'Y') {
+                      echo 'Còn phòng';
+                    } else {
+                      echo 'Tạm hết phòng';
+                    } ?> </span>
+            </div>
+            <div class="card_data">
+              <div style="display: flex" class="data">
+                <div class="text">
+                  <label class="text_m"><?= $row['phong_ten'] ?></label>
+                  <div class="cube text_s">
+                    <label class="side front">Mô tả: <?= $row['phong_mota'] ?> </label>
+                    <label class="side top">Giá: <?= number_format($row['phong_gia'], 0, ',', '.') ?>&#8363</label>
+                  </div>
                 </div>
               </div>
+              <span title="Đặt phòng ngay kẻo lỡ">Đặt ngay</span>
             </div>
-            <span title="Đặt phòng ngay kẻo lỡ">Đặt ngay</span>
+            <a href="chitiet_phong.php?phong_id=<?= $row['phong_id']; ?>">Xem chi tiết</a>
           </div>
-          <a href="chitiet_phong.php?phong_id=<?=$row['phong_id'];?>">Xem chi tiết</a>
-        </div>
-        <?php 
-        $count++;
+        <?php
+          $count++;
         } ?>
-      </div> 
+      </div>
 
       <div class="sologan">
         <h1>SỰ HÀI LÒNG CỦA QUÝ KHÁCH LÀ NIỀM TỰ HÀO CỦA CHÚNG TÔI !</h1>
-        <p>Nhiều khách hàng của Trường Giang Boutique Hotel sau khi sử dụng dịch vụ của công ty cũng đã phản hồi và đánh giá rất tốt, từ đội ngũ nhân sự chuyên nghiệp đến những ý tưởng sáng tạo khi triển khai dịch vụ, không dừng ở đó chung tôi sẽ không ngừng đổi mới và phát triển thêm nữa đẻ luôn là sự lựa chọn hoàn hảo của bạn.</p>
+        <p>Nhiều khách hàng của HT Hotel sau khi sử dụng dịch vụ của công ty cũng đã phản hồi và đánh giá rất tốt, từ đội ngũ nhân sự chuyên nghiệp đến những ý tưởng sáng tạo khi triển khai dịch vụ, không dừng ở đó chung tôi sẽ không ngừng đổi mới và phát triển thêm nữa đẻ luôn là sự lựa chọn hoàn hảo của bạn.</p>
       </div>
-
+    </div>
   </main>
 
-  <?php
-  include_once __DIR__ . "/bocucchinh/footer.php";
-  ?>
+  <div id="footer">
+    <?php
+    include_once __DIR__ . "/bocucchinh/footer.php";
+    ?>
+  </div>
 
-  <script src="/js/app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 
 </html>
