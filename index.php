@@ -12,6 +12,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- <link rel="stylesheet" href="css/head.css"> -->
   <?php
+  include_once __DIR__ . '/loader.php';
   include_once __DIR__ . "/css/head.php";
   include_once __DIR__ . "/css/trangchu.php";
   include_once __DIR__ . "/css/styles.php";
@@ -26,12 +27,12 @@
   include_once __DIR__ . "/connect/connect.php";
 
   $sql = "SELECT p.*, i.*
-          FROM phong AS p
-          JOIN img_room AS i ON p.phong_id = i.phong_id
+          FROM loaiphong AS p
+          JOIN img_room AS i ON p.lp_id = i.lp_id
           WHERE i.img_id = (
               SELECT MIN(img_id)
               FROM img_room
-              WHERE phong_id = p.phong_id
+              WHERE lp_id = p.lp_id
           );
           ";
 
@@ -39,12 +40,10 @@
   $arrRoom = [];
   while ($row = mysqli_fetch_assoc($result)) {
     $arrRoom[] = array(
-      "phong_id" => $row["phong_id"],
-      'phong_ten' => $row['phong_ten'],
-      'phong_mota' => $row['phong_mota'],
-      'phong_gia' => $row['phong_gia'],
-      'phong_loai' => $row['phong_loai'],
-      'status' => $row['status'],
+      "lp_id" => $row["lp_id"],
+      'lp_ten' => $row['lp_ten'],
+      'lp_mota' => $row['lp_mota'],
+      'lp_gia' => $row['lp_gia'],
       'url' => $row['url'],
     );
   }
@@ -99,25 +98,29 @@
           <div class="card_room" id="card_room">
             <div class="card_form">
               <img src="<?= $row['url'] ?>" alt="Lỗi">
-              <span><?php if ($row['status'] == 'Y') {
-                      echo 'Còn phòng';
-                    } else {
-                      echo 'Tạm hết phòng';
-                    } ?> </span>
+              <span><?php 
+                $sql_st = "SELECT * FROM phong WHERE status = 'N' AND lp_id = " . $row['lp_id'];
+                $result_st = mysqli_query($conn, $sql_st);
+                $row_st = mysqli_fetch_assoc($result_st);
+                if ($row_st !== null && $row_st['status'] == 'N') {
+                  echo 'Còn phòng';
+                } else {
+                  echo 'Tạm hết phòng';
+                } ?> </span>
             </div>
             <div class="card_data">
               <div style="display: flex" class="data">
                 <div class="text">
-                  <label class="text_m"><?= $row['phong_ten'] ?></label>
+                  <label class="text_m"><?= $row['lp_ten'] ?></label>
                   <div class="cube text_s">
-                    <label class="side front">Mô tả: <?= $row['phong_mota'] ?> </label>
-                    <label class="side top">Giá: <?= number_format($row['phong_gia'], 0, ',', '.') ?>&#8363</label>
+                    <label class="side front">Mô tả: <?= $row['lp_mota'] ?> </label>
+                    <label class="side top">Giá: <?= number_format($row['lp_gia'], 0, ',', '.') ?>&#8363</label>
                   </div>
                 </div>
               </div>
               <span title="Đặt phòng ngay kẻo lỡ">Đặt ngay</span>
             </div>
-            <a href="chitiet_phong.php?phong_id=<?= $row['phong_id']; ?>">Xem chi tiết</a>
+            <a href="chitiet_phong.php?lp_id=<?= $row['lp_id']; ?>">Xem chi tiết</a>
           </div>
         <?php
           $count++;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include_once __DIR__ . "/../connect/connect.php";
+include_once __DIR__ . "/../../connect/connect.php";
 session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: ./login.php");
@@ -42,45 +42,21 @@ if (!isset($_SESSION['user'])) {
 
 <body>
     <?php
-    include_once __DIR__ . "/bocuc/head.php";
+    include_once __DIR__ . "/../bocuc/head.php";
 
-    include_once __DIR__ . "/../connect/connect.php";
+    include_once __DIR__ . "/../../connect/connect.php";
 
-    $sql = "SELECT  dp.*, kh.*, lp.lp_ten
-    FROM datphong AS dp 
-        JOIN khachhang AS kh ON dp.kh_id = kh.kh_id
-        JOIN loaiphong AS lp ON dp.lp_id = lp.lp_id 
-        WHERE dp.status = 'N';";
-
-    $result = mysqli_query($conn, $sql);
-
-    $arrDP = [];
-
-    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-        $arrDP[] = array(
-            'datphong_id' => $row['datphong_id'],
-            'kh_hoten' => $row['kh_hoten'],
-            'kh_sdt' => $row['kh_sdt'],
-            'kh_email' => $row['kh_email'],
-            'lp_ten' => $row['lp_ten'],
-            'dp_ngayden' => $row['dp_ngayden'],
-            'dp_ngaydi' => $row['dp_ngaydi'],
-            'dp_soluong_khach' => $row['dp_soluong_khach'],
-            'dp_soluong_phong' => $row['dp_soluong_phong'],
-            'datphong_yc' => $row['datphong_yc'],
-            'status' => $row['status']
-        );
-    }
+    
 
     ?>
 
     <main>
         <?php
-        include_once __DIR__ . "/bocuc/head.php";
-        include_once __DIR__ . "/bocuc/sidebar.php";
+        include_once __DIR__ . "/../bocuc/head.php";
+        include_once __DIR__ . "/../bocuc/sidebar.php";
         ?>
         <div class="container">
-            <h1>Yêu cầu đặt phòng</h1>
+            <h1>Danh sách phòng đã đặt</h1>
             <div class="content">
                 <div class="card">
                     <table>
@@ -106,7 +82,7 @@ if (!isset($_SESSION['user'])) {
                                 <td><?= $row['kh_hoten']; ?></td>
                                 <td><?= $row['kh_sdt']; ?></td>
                                 <td><?= $row['kh_email']; ?></td>
-                                <td><?= $row['lp_ten']; ?></td>
+                                <td><?= $row['phong_ten']; ?></td>
                                 <td><?= date('d/m/Y',strtotime($row['dp_ngayden'])) ?></td>
                                 <td><?= date('d/m/Y',strtotime($row['dp_ngaydi'])) ?></td>
                                 <td><?= $row['dp_soluong_khach']; ?></td>

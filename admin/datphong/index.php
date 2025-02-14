@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include_once __DIR__ . "/../connect/connect.php";
+include_once __DIR__ . "/../../connect/connect.php";
 session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: ./login.php");
@@ -42,15 +42,15 @@ if (!isset($_SESSION['user'])) {
 
 <body>
     <?php
-    include_once __DIR__ . "/bocuc/head.php";
+    include_once __DIR__ . "/../bocuc/head.php";
 
-    include_once __DIR__ . "/../connect/connect.php";
+    include_once __DIR__ . "/../../connect/connect.php";
 
     $sql = "SELECT  dp.*, kh.*, lp.lp_ten
     FROM datphong AS dp 
         JOIN khachhang AS kh ON dp.kh_id = kh.kh_id
         JOIN loaiphong AS lp ON dp.lp_id = lp.lp_id 
-        WHERE dp.status = 'N';";
+        WHERE dp.status = 'Y';";
 
     $result = mysqli_query($conn, $sql);
 
@@ -76,11 +76,11 @@ if (!isset($_SESSION['user'])) {
 
     <main>
         <?php
-        include_once __DIR__ . "/bocuc/head.php";
-        include_once __DIR__ . "/bocuc/sidebar.php";
+        include_once __DIR__ . "/../bocuc/head.php";
+        include_once __DIR__ . "/../bocuc/sidebar.php";
         ?>
         <div class="container">
-            <h1>Yêu cầu đặt phòng</h1>
+            <h1>Danh sách phòng đã đặt</h1>
             <div class="content">
                 <div class="card">
                     <table>
@@ -95,7 +95,7 @@ if (!isset($_SESSION['user'])) {
                             <th>Số người</th>
                             <th>Số lượng phòng</th>
                             <th>Yêu cầu</th>
-                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
                         </tr>
                         <?php
                         $i = 1;
@@ -117,8 +117,8 @@ if (!isset($_SESSION['user'])) {
                                         echo "Chưa xác nhận";
                                     }; ?>
                                     <div>
-                                        <a href="Xuly/xuly_datphong.php?dp_id=<?= $row['datphong_id'] ?>">Xác nhận</a>
-                                        <a href="Xuly/delete.php?dp_id=<?= $row['datphong_id'] ?>">Xoá yêu cầu</a>
+                                        <a href="Xuly/xuly_datphong.php?dp_id=<?= $row['datphong_id'] ?>">Sửa</a>
+                                        <a href="Xuly/delete.php?dp_id=<?= $row['datphong_id'] ?>">Xoá</a>
                                     </div>
                                 </td>
                             </tr>

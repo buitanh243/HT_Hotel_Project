@@ -31,20 +31,20 @@
 
   include_once __DIR__ . "/connect/connect.php";
 
-  if (isset($_GET["phong_id"])) {
-    $phong_id = $_GET["phong_id"];
+  if (isset($_GET["lp_id"])) {
+    $lp_id = $_GET["lp_id"];
 
     $sql = "SELECT * 
       FROM img_room AS i 
-      JOIN phong AS p ON i.phong_id = p.phong_id 
-      WHERE i.phong_id = $phong_id;";
+      JOIN loaiphong AS p ON i.lp_id = p.lp_id 
+      WHERE i.lp_id = $lp_id;";
 
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
 
     $sql_url = "SELECT url 
       FROM img_room AS i 
-       WHERE i.phong_id = $phong_id;";
+       WHERE i.lp_id = $lp_id;";
 
     $resul_url = mysqli_query($conn, $sql);
     $row_url = mysqli_fetch_assoc($result);
@@ -61,17 +61,23 @@
               <div class="row">
                 <div class="col-6 img-content">
                   <?php foreach ($resul_url as $row_url): ?>
-                    <div class="img-1"><img  src="<?= $row_url['url'] ?>" alt=""></div>
-                    <div class="img-2"><img  src="<?= $row_url['url'] ?>" alt=""></div>
-                    <div class="img-3"><img  src="<?= $row_url['url'] ?>" alt=""></div>
+                    <div class="img-1"><img src="<?= $row_url['url'] ?>" alt=""></div>
+                    <div class="img-2"><img src="<?= $row_url['url'] ?>" alt=""></div>
+                    <div class="img-3"><img src="<?= $row_url['url'] ?>" alt=""></div>
                   <?php endforeach; ?>
                 </div>
                 <div class="col-6 chitiet">
                   <div class="thongtin">
-                    <h3><?php echo $row['phong_ten'] ?></h3>
-                    <p id="mota">Mô tả: <?php echo $row['phong_mota'] ?></p>
-                    <p id="gia">Giá: <?= number_format($row['phong_gia'], 0, ',', '.') ?>&#8363</p>
-                    <p id="soluong">Số lượng: <?php echo $row['phong_soluong'] ?></p>
+                    <h3><?php echo $row['lp_ten'] ?></h3>
+                    <p id="mota">Mô tả: <?php echo $row['lp_mota'] ?></p>
+                    <p id="gia">Giá: <?= number_format($row['lp_gia'], 0, ',', '.') ?>&#8363</p>
+                    <p id="soluong">Số lượng: <?php 
+                      $sql_soluong = "SELECT COUNT(*) AS soluong FROM phong WHERE status = 'N' AND lp_id = $lp_id;";
+                      $result_soluong = mysqli_query($conn, $sql_soluong);
+
+                      $row_soluong = mysqli_fetch_assoc($result_soluong);
+                      echo $row_soluong['soluong'];
+                    ?></p>
                     <a href="index.php" class="btn-back">Quay lại</a>
                     <a href="#thongtin_datphong" class="btn">Đặt phòng</a>
                   </div>
@@ -89,7 +95,7 @@
                     <table class="table">
                       <tr>
                         <td>Diện tích</td>
-                        <td><?= $row['phong_dientich'] ?></td>
+                        <td><?= $row['lp_dientich'] ?></td>
                       </tr>
                       <tr>
                         <td>Loại giường</td>
@@ -175,7 +181,37 @@
       locale: "vi"
     });
   </script>
+  <?php
+  $lp_id = $_GET['lp_id'];
 
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $hoten = $_POST['hoten'];
+    $sdt = $_POST['sdt'];
+    $email = $_POST['email'];
+    $ngaynhan = $_POST['ngaynhan'];
+    $ngaytra = $_POST['ngaytra'];
+    $songuoi = $_POST['songuoi'];
+    $soluongphong = $_POST['soluongphong'];
+    $yeucau = $_POST['yeucau'];
+    $status = 'N';
+
+    $ngaynhan = date('Y-m-d', strtotime($ngaynhan));
+    $ngaytra = date('Y-m-d', strtotime($ngaytra));
+
+    $sql_khachhang = "INSERT INTO khachhang (kh_hoten, kh_sdt, kh_email) VALUES ('$hoten', '$sdt', '$email')";
+    if (mysqli_query($conn, $sql_khachhang)) {
+      $khachhang_id = mysqli_insert_id($conn); // Lấy ID của khách hàng vừa chèn
+
+      $sql = "INSERT INTO datphong (lp_id, kh_id, dp_ngayden, dp_ngaydi, dp_soluong_khach, dp_soluong_phong, datphong_yc, status) VALUES ('$lp_id', '$khachhang_id', '$ngaynhan', '$ngaytra', '$songuoi', '$soluongphong', '$yeucau', '$status')";
+      
+      if (mysqli_query($conn, $sql)) {
+        echo "Đặt phòng thành công";
+      } else {
+        echo "Đặt phòng thất bại";
+      }
+    }
+  }
+  ?>
 </body>
 
 </html>

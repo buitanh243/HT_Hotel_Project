@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +11,23 @@
             color: #fff;
             padding: 10px;
             text-align: center;
-            position: relative;
+            position: fixed;
+            /* Giữ cố định */
             top: 0;
+            /* Ghim vào trên cùng */
+            left: 0;
+            width: 100%;
+            /* Trải rộng toàn màn hình */
             z-index: 1000;
             font-size: larger;
         }
-        
+
+        body {
+            padding-top: 60px;
+            /* Để tránh nội dung bị che bởi header */
+        }
+
+
         nav {
             display: flex;
             justify-content: space-between;
@@ -61,11 +73,12 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <nav>
             <div>
-                <p style="color: red; font-size: larger; font-weight: 900;  " >HT Hotel Manager</p>
+                <p style="color: red; font-size: larger; font-weight: 900;  ">HT Hotel Manager</p>
             </div>
             <ul>
                 <li>
@@ -74,7 +87,7 @@
                     <a href="">Thống kê danh sách phòng trống</a>
                 </li>
                 <li>
-                   <form class="form-lg"  action="./Xuly/logout.php" method="POST">
+                    <form class="form-lg" action="./Xuly/logout.php" method="POST">
                         <button class="logout" href="">Đăng xuất</button>
                     </form>
                 </li>
@@ -82,4 +95,5 @@
         </nav>
     </header>
 </body>
-</html> 
+
+</html>
