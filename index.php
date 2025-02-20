@@ -86,7 +86,7 @@
         </div>
       </div>
 
-      <div class="room-product">
+      <div class="room-product" id="card_room">
         <?php
         $count = 0;
         foreach ($arrRoom as $row) {
@@ -95,7 +95,7 @@
             $count = 0;
           }
         ?>
-          <div class="card_room" id="card_room">
+          <div class="card_room" >
             <div class="card_form">
               <img src="<?= $row['url'] ?>" alt="Lỗi">
               <span><?php 
@@ -118,7 +118,7 @@
                   </div>
                 </div>
               </div>
-              <span title="Đặt phòng ngay kẻo lỡ">Đặt ngay</span>
+              <span>Đặt ngay kẻo lỡ</span>
             </div>
             <a href="chitiet_phong.php?lp_id=<?= $row['lp_id']; ?>">Xem chi tiết</a>
           </div>

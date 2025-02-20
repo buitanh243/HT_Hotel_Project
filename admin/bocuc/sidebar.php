@@ -47,9 +47,8 @@
             <a href="/Hotel_Project/admin/datphong/">Danh sách đặt phòng</a>
             <a href="/Hotel_Project/admin/khachhang/">Danh sách khách hàng</a>
             <a href="/Hotel_Project/admin/phong/">Danh sách phòng</a>
-            <a href="/Hotel_Project/admin/loaiphong./">Danh sách loại phòng</a>
-            <a href="/Hotel_Project/admin/nhanvien/">Danh sách nhân viên</a>
-            <a href="/Hotel_Project/admin/hoadon/">Danh sách hóa đơn</a>
+            <a href="/Hotel_Project/admin/loaiphong/">Danh sách loại phòng</a>
+            <!-- <a href="/Hotel_Project/admin/nhanvien/">Danh sách nhân viên</a> -->
         </div>
     </div>
 </body>

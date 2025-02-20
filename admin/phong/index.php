@@ -18,18 +18,18 @@ if (!isset($_SESSION['user'])) {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <link rel="stylesheet" href="css/head.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.15.10/sweetalert2.all.js" integrity="sha512-39ZBE3xNYd9rnIrwuskSg4G8uP83q9BSM/G0xtHbNb3AXQx+MkiHH+e8bj5+WxB+jtixKID7NQS9zPJlVoLL/A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
 
     <?php
-    include_once __DIR__ . "/../bocuc/head.php";
-
     include_once __DIR__ . "/../../connect/connect.php";
 
-    $sql = "SELECT phong_id,phong_ten,status FROM phong;";
-
+    $sql = "SELECT phong_id, phong_ten, status FROM phong ORDER BY phong_ten ASC;";
+    
     $result = mysqli_query($conn, $sql);
 
     $arrP = [];
@@ -45,47 +45,51 @@ if (!isset($_SESSION['user'])) {
 
     <main>
         <?php
-        include_once __DIR__ . "/../bocuc/head.php";
-        include_once __DIR__ . "/../bocuc/sidebar.php";
         include_once __DIR__ . "/../css/phong/phong.php";
+        include_once __DIR__ . "/../css/styles.php";
 
         ?>
         <div class="container">
+            <?php
+            include_once __DIR__ . "/../bocuc/head.php";
+            include_once __DIR__ . "/../bocuc/sidebar.php";
+            ?>
             <h1>Danh sách phòng</h1>
             <div class="content">
                 <?php
                 $count = 0;
                 foreach ($arrP as $p):
-                    if ($count % 5 == 0): // Mở hàng mới sau mỗi 4 card
+                    if ($count % 5 == 0): 
                         if ($count > 0) echo '</div>'; // Đóng hàng trước đó
                         echo '<div class="row">';
                     endif;
-                    $cardClass = ($p['status'] == 'N') ? 'card' : 'card booked';
+                    $cardClass = ($p['status'] == 'N' || is_null($p['status'])) ? 'card' : 'card booked';
                 ?>
                     <div class="<?= $cardClass ?>">
                         <div class="card-details">
                             <p class="text-title"><?= htmlspecialchars($p['phong_ten']) ?></p>
                             <p class="text-body">
-                                <?= ($p['status'] == 'N') ? "Trống" : "Đã đặt" ?>
+                                <?= ($p['status'] == 'N' || is_null($p['status'])) ? "Trống" : "Đã đặt"; ?>
                             </p>
-                            <a class="btn-delete" href="delete.php"><i class="fa-solid fa-trash"></i></a>
+                            <a href="#" class="btn-delete" data-id="<?= $p['phong_id'] ?>"><i class="fa-solid fa-trash"></i></a>
                         </div>
                         <a class="card-button" href="info_phong.php?phong_id=<?= $p['phong_id'] ?>">Xem chi tiết</a>
                     </div>
                 <?php
                     $count++;
                 endforeach;
-                if ($count > 0) echo '</div>'; 
+                if ($count > 0) echo '</div>';
                 ?>
-                <button>
-                    <a href="./add.php">Thêm phòng</a>
-                </button>
+                <a class="btn-save" href="./add.php">Thêm phòng</a>
+
             </div>
         </div>
 
     </main>
 
-    <script src="/js/app.js"></script>
+    <?php
+    include_once __DIR__ . '/../js/js.php';
+    ?>
 </body>
 
 </html>

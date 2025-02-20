@@ -15,6 +15,7 @@
   include_once __DIR__ . "/css/head.php";
   include_once __DIR__ . "/css/about.php";
   include_once __DIR__ . "/css/styles.php";
+  include_once __DIR__ . '/loader.php';
   ?>
 </head>
 

@@ -18,12 +18,16 @@ User Authentication: Secure login and role-based access for staff.
 
 Analytics Dashboard: Visualize hotel performance metrics.
 
-Technologies Used
+Technologies Used:
 
-Frontend: HTML, CSS, JavaScript 
+    Frontend: HTML, CSS, JavaScript 
 
-Backend: PHP
+    Backend: PHP
 
-Database: MySQL
+    Database: MySQL
 
-Other Tools: Bootstrap 5.0, Fontawesome, SweerAllert2
+    Other Tools: Bootstrap 5.0, Fontawesome, SweerAllert2
+
+Link to login Admin: www.ht_hotel-huutanhbui.id.vn/admin/
+
+User and Pass: admin

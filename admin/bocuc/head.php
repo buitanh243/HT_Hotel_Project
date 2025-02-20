@@ -82,9 +82,8 @@
             </div>
             <ul>
                 <li>
-                    <a href="">Thống kê doanh thu</a>
-                    <a href="">Thống kê danh sách phòng đã đặt</a>
-                    <a href="">Thống kê danh sách phòng trống</a>
+                    <a href="/Hotel_Project/admin/thongke/doanhthu.php">Thống kê doanh thu</a>
+                    <a href="/Hotel_Project/admin/thongke/dsphong.php">Thống kê danh sách phòng</a>
                 </li>
                 <li>
                     <form class="form-lg" action="./Xuly/logout.php" method="POST">

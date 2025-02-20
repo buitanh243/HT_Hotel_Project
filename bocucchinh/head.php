@@ -24,7 +24,7 @@
             </div>
             <div class="menu">
                 <a href="index.php">Trang chủ</a>
-                <a href="index.php#card_room">Đặt phòng</a>
+                <a href=".#card_room">Đặt phòng</a>
                 <a href="about.php">Giới thiệu</a>
                 <a href=".#footer">Liên hệ</a>
             </div>

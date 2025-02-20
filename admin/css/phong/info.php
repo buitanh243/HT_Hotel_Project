@@ -23,6 +23,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
+            margin-bottom: 20px;
         }
 
         .table-info th,
@@ -43,24 +44,5 @@
 
         .table-info td {
             color: #555;
-        }
-
-        .action-links {
-            margin-top: 15px;
-        }
-
-        .action-links a {
-            display: inline-block;
-            padding: 8px 15px;
-            margin: 5px;
-            color: white;
-            background-color: #007bff;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-
-        .action-links a:hover {
-            background-color: #0056b3;
         }
     </style>

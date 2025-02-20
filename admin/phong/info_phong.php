@@ -18,7 +18,37 @@ if (!isset($_SESSION['user'])) {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <link rel="stylesheet" href="css/head.css"> -->
+    <?php include_once __DIR__ . "/../css/styles.php"; ?>
+    <style>
+        th {
+            color: black;
+            background-color: cadetblue;
+        }
+
+        .btn-invoice {
+            background-color: goldenrod;
+            color: white;
+            padding: 10px;
+            margin: 20px;
+            border-radius: 5px;
+        }
+
+        .btn-invoice:hover {
+            background-color: chocolate;
+        }
+
+        .stop-btn {
+            background-color: thistle;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .stop-btn:hover {
+            background-color: teal;
+        }
+    </style>
 </head>
 
 <body>
@@ -47,6 +77,7 @@ if (!isset($_SESSION['user'])) {
         include_once __DIR__ . "/../bocuc/head.php";
         include_once __DIR__ . "/../bocuc/sidebar.php";
         include_once __DIR__ . "/../css/phong/info.php";
+
         $phong_id = $_GET['phong_id'];
         $sql = "SELECT
             p.phong_ten,
@@ -84,15 +115,14 @@ if (!isset($_SESSION['user'])) {
                 'httt_ten' => $row['httt_ten']
             );
         }
-
-
         ?>
         <div class="container">
             <?php
-            if (count($arrTTP) == 0) {
-                echo '<h2>Phòng này chưa có thông tin đặt phòng</h2>';
-                echo '<div class="action-links"><a href="">Thêm thông tin đặt phòng</a></div>';
-            } else {
+            if (count($arrTTP) == 0) { ?>
+                <h2>Phòng này chưa có thông tin đặt phòng</h2>
+                <a class="btn-save" href="./datphong.php?phong_id=<?= $phong_id ?>">Thêm thông tin đặt phòng</a>
+
+                <?php } else {
                 foreach ($arrTTP as $ttp): ?>
                     <h2>Thông tin phòng <?= htmlspecialchars($ttp['phong_ten']) ?></h2>
                     <table class="table-info">
@@ -123,26 +153,26 @@ if (!isset($_SESSION['user'])) {
                         </tr>
                         <tr>
                             <th>Ngày thanh toán</th>
-                            <td><?= ($ttp['stt_status'] == 'N') ? 'Rỗng' : $ttp['ngay_thanhtoan']; ?></td>
+                            <td><?= ($ttp['stt_status'] == 'N') ? 'Rỗng' : date('d/m/Y', strtotime($ttp['ngay_thanhtoan'])); ?></td>
                         </tr>
                         <tr>
                             <th>Hình thức thanh toán</th>
                             <td><?= $ttp['httt_ten'] ?></td>
                         </tr>
                     </table>
+                    <a href="#" data-phong_id="<?= $phong_id ?>" class="stop-btn">Đóng phòng</a>
                 <?php endforeach; ?>
-                <div class="action-links">
-                    <a href="">Sửa thông tin đặt phòng</a>
-                </div>
+                <a class="btn-save" href="./edit.php?phong_id=<?= $phong_id ?>">Sửa thông tin đặt phòng</a>
+                <a class="btn-invoice" href="./../hoadon/xuathoadon.php?phong_id=<?= $phong_id ?>">Xuất hoá đơn</a>
             <?php } ?>
-            <div class="action-links">
-                <a href="index.php">Quay lại</a>
-            </div>
+            <a class="btn-back" href="index.php">Quay lại</a>
         </div>
 
     </main>
 
-    <script src="/js/app.js"></script>
+    <?php
+    include_once __DIR__ . "/../js/js.php";
+    ?>
 </body>
 
 </html>

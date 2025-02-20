@@ -20,21 +20,41 @@ if (!isset($_SESSION['user'])) {
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link rel="stylesheet" href="css/head.css"> -->
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        main {
+            display: flex;
+            align-items: center;
         }
 
-        table,
-        th,
-        td {
-            border: 1px solid black;
+        .container-phong {
+            margin-top: 100px;
+            width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
-        th,
-        td {
-            padding: 10px;
+        h2 {
             text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
     </style>
 
@@ -42,10 +62,9 @@ if (!isset($_SESSION['user'])) {
 
 <body>
     <?php
-    include_once __DIR__ . "/../bocuc/head.php";
-
+    include_once __DIR__ . "/../css/styles.php";
     include_once __DIR__ . "/../../connect/connect.php";
-    
+
     ?>
 
     <main>
@@ -70,28 +89,28 @@ if (!isset($_SESSION['user'])) {
         }
         ?>
 
-        <div class="container">
+        <div class="container-phong">
             <h2>Sửa loại phòng</h2>
             <form action="" method="post">
                 <?php foreach ($arrLP as $lp): ?>
-                <div class="form-group">
-                    <label for="tenloaiphong">Tên loại phòng</label>
-                    <input type="text" class="form-control" id="lp_ten" name="lp_ten" value="<?= $lp['lp_ten'] ?>" required>
-                </div>
-                <div class="form-group">
-                    <label for="giaphong">Giá phòng</label>
-                    <input type="text" class="form-control" id="lp_gia" name="lp_gia" value="<?= number_format($lp['lp_gia'],'0',',','.') ?>" required>
-                </div>
-                <div class="form-group">
-                    <label for="songuoitoida">Mô tả</label>
-                    <input type="text" class="form-control" id="lp_mota" name="lp_mota" value="<?= $lp['lp_mota'] ?>" required>
-                </div>
-                <div class="form-group">
-                    <label for="dientich">Diện tích</label>
-                    <input type="text" class="form-control" id="lp_dientich" name="lp_dientich" value="<?= $lp['lp_dientich'] ?>" required>
-                </div>
-                <button type="submit" id="save" name="save" class="">Lưu</button>
-                <a href="index.php">Quay lại</a>
+                    <div class="form-group">
+                        <label for="tenloaiphong">Tên loại phòng</label>
+                        <input type="text" class="form-control" id="lp_ten" name="lp_ten" value="<?= $lp['lp_ten'] ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="giaphong">Giá phòng</label>
+                        <input type="text" class="form-control" id="lp_gia" name="lp_gia" value="<?= number_format($lp['lp_gia'], '0', ',', '.') ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="songuoitoida">Mô tả</label>
+                        <input type="text" class="form-control" id="lp_mota" name="lp_mota" value="<?= $lp['lp_mota'] ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dientich">Diện tích</label>
+                        <input type="text" class="form-control" id="lp_dientich" name="lp_dientich" value="<?= $lp['lp_dientich'] ?>" required>
+                    </div>
+                    <button type="submit" class="btn-save" name="save" class="">Lưu</button>
+                    <a class="btn-back" href="index.php">Quay lại</a>
                 <?php endforeach; ?>
             </form>
         </div>

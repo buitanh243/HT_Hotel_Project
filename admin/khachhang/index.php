@@ -19,35 +19,12 @@ if (!isset($_SESSION['user'])) {
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link rel="stylesheet" href="css/head.css"> -->
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-        }
-    </style>
-
 </head>
 
 <body>
     <?php
-    include_once __DIR__ . "/../bocuc/head.php";
-
     include_once __DIR__ . "/../../connect/connect.php";
-
-    
-
+    include_once __DIR__ . "/../css/styles.php";
     ?>
 
     <main>
@@ -56,55 +33,36 @@ if (!isset($_SESSION['user'])) {
         include_once __DIR__ . "/../bocuc/sidebar.php";
         ?>
         <div class="container">
-            <h1>Danh sách phòng đã đặt</h1>
-            <div class="content">
-                <div class="card">
-                    <table>
-                        <tr>
-                            <th>STT</th>
-                            <th>Tên KH</th>
-                            <th>SĐT</th>
-                            <th>Email</th>
-                            <th>Tên phòng</th>
-                            <th>Ngày đến</th>
-                            <th>Ngày đi</th>
-                            <th>Số người</th>
-                            <th>Số lượng phòng</th>
-                            <th>Yêu cầu</th>
-                            <th>Trạng thái</th>
-                        </tr>
-                        <?php
-                        $i = 1;
-                        foreach ($arrDP as $row) {
-                        ?>
-                            <tr>
-                                <td><?= $i ?></td>
-                                <td><?= $row['kh_hoten']; ?></td>
-                                <td><?= $row['kh_sdt']; ?></td>
-                                <td><?= $row['kh_email']; ?></td>
-                                <td><?= $row['phong_ten']; ?></td>
-                                <td><?= date('d/m/Y',strtotime($row['dp_ngayden'])) ?></td>
-                                <td><?= date('d/m/Y',strtotime($row['dp_ngaydi'])) ?></td>
-                                <td><?= $row['dp_soluong_khach']; ?></td>
-                                <td><?= $row['dp_soluong_phong']; ?></td>
-                                <td><?= $row['datphong_yc']; ?></td>
-                                <td>
-                                    <?php if ($row['status'] == 'N') {
-                                        echo "Chưa xác nhận";
-                                    }; ?>
-                                    <div>
-                                        <a href="Xuly/xuly_datphong.php?dp_id=<?= $row['datphong_id'] ?>">Xác nhận</a>
-                                        <a href="Xuly/delete.php?dp_id=<?= $row['datphong_id'] ?>">Xoá yêu cầu</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php
-                            $i++;
-                        }
-                        ?>
-                    </table>
-                </div>
-            </div>
+            <h1>Danh sách khách hàng</h1>
+            <table>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên khách hàng</th>
+                    <th>Số điện thoại</th>
+                    <th>Email</th>
+                    <th style="display: flex; justify-content: center;">Thao tác</th>
+                </tr>
+                <?php
+                $sql = "SELECT kh.* FROM datphong AS dp 
+                        JOIN khachhang AS  kh ON dp.kh_id = kh.kh_id
+                        WHERE dp.`status` = 'Y' ";
+                $result = mysqli_query($conn, $sql);
+                $stt = 1;
+                while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                    <tr>
+                        <td><?php echo $stt++ ?></td>
+                        <td><?php echo $row['kh_hoten'] ?></td>
+                        <td><?php echo $row['kh_sdt'] ?></td>
+                        <td><?php echo $row['kh_email'] ?></td>
+                        <td style="display: flex; justify-content: center;" >
+                            <a href="./edit.php?id=<?php echo $row['kh_id'] ?>">Sửa</a>
+                        </td>
+                    </tr>
+                <?php
+                }
+                ?>
+            </table>
         </div>
     </main>
 

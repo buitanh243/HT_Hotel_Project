@@ -18,32 +18,18 @@ if (!isset($_SESSION['user'])) {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <link rel="stylesheet" href="css/head.css"> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.15.10/sweetalert2.all.js" integrity="sha512-39ZBE3xNYd9rnIrwuskSg4G8uP83q9BSM/G0xtHbNb3AXQx+MkiHH+e8bj5+WxB+jtixKID7NQS9zPJlVoLL/A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-
-        th,
-        td {
-            padding: 10px;
+        th,td {
             text-align: center;
         }
     </style>
-
 </head>
 
 <body>
     <?php
-    include_once __DIR__ . "/../bocuc/head.php";
-
     include_once __DIR__ . "/../../connect/connect.php";
 
     $sql = "SELECT  dp.*, kh.*, lp.lp_ten
@@ -78,9 +64,11 @@ if (!isset($_SESSION['user'])) {
         <?php
         include_once __DIR__ . "/../bocuc/head.php";
         include_once __DIR__ . "/../bocuc/sidebar.php";
+        include_once __DIR__ . "/../css/styles.php";
+
         ?>
         <div class="container">
-            <h1>Danh sách phòng đã đặt</h1>
+            <h1>Danh sách phòng đã xác nhận từ khách hàng</h1>
             <div class="content">
                 <div class="card">
                     <table>
@@ -107,8 +95,8 @@ if (!isset($_SESSION['user'])) {
                                 <td><?= $row['kh_sdt']; ?></td>
                                 <td><?= $row['kh_email']; ?></td>
                                 <td><?= $row['lp_ten']; ?></td>
-                                <td><?= date('d/m/Y',strtotime($row['dp_ngayden'])) ?></td>
-                                <td><?= date('d/m/Y',strtotime($row['dp_ngaydi'])) ?></td>
+                                <td><?= date('d/m/Y', strtotime($row['dp_ngayden'])) ?></td>
+                                <td><?= date('d/m/Y', strtotime($row['dp_ngaydi'])) ?></td>
                                 <td><?= $row['dp_soluong_khach']; ?></td>
                                 <td><?= $row['dp_soluong_phong']; ?></td>
                                 <td><?= $row['datphong_yc']; ?></td>
@@ -117,8 +105,8 @@ if (!isset($_SESSION['user'])) {
                                         echo "Chưa xác nhận";
                                     }; ?>
                                     <div>
-                                        <a href="Xuly/xuly_datphong.php?dp_id=<?= $row['datphong_id'] ?>">Sửa</a>
-                                        <a href="Xuly/delete.php?dp_id=<?= $row['datphong_id'] ?>">Xoá</a>
+                                        <a href="./edit.php?dp_id=<?= $row['datphong_id'] ?>">Sửa</a>
+                                        <a href="#" class="btn-delete" data-id="<?= $row['datphong_id'] ?>">Xoá</a>
                                     </div>
                                 </td>
                             </tr>
@@ -132,7 +120,9 @@ if (!isset($_SESSION['user'])) {
         </div>
     </main>
 
-    <script src="/js/app.js"></script>
+    <?php 
+    include_once __DIR__ . "/../js/js.php";    
+    ?>
 </body>
 
 </html>

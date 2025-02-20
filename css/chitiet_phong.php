@@ -212,6 +212,10 @@
         padding-bottom: 12px;
     }
 
+    #thongtin_datphong {
+        scroll-margin-top: 100px;
+    }
+
     .thongtin_datphong {
         display: flex;
         flex-direction: column;

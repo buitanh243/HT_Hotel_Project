@@ -19,31 +19,11 @@ if (!isset($_SESSION['user'])) {
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link rel="stylesheet" href="css/head.css"> -->
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-        }
-    </style>
 
 </head>
 
 <body>
     <?php
-    include_once __DIR__ . "/../bocuc/head.php";
-
     include_once __DIR__ . "/../../connect/connect.php";
 
     $sql = "SELECT * FROM loaiphong";
@@ -68,6 +48,7 @@ if (!isset($_SESSION['user'])) {
         <?php
         include_once __DIR__ . "/../bocuc/head.php";
         include_once __DIR__ . "/../bocuc/sidebar.php";
+        include_once __DIR__ . "/../css/styles.php";
         ?>
         <div class="container">
             <h1>Danh sách loại phòng</h1>
@@ -89,7 +70,7 @@ if (!isset($_SESSION['user'])) {
                             <tr>
                                 <td><?= $i ?></td>
                                 <td><?= $row['lp_ten'] ?></td>
-                                <td><?= number_format($row['lp_gia'],'0',',','.') ?>&#8363</td>
+                                <td><?= number_format($row['lp_gia'], '0', ',', '.') ?>&#8363</td>
                                 <td><?= $row['lp_mota'] ?></td>
                                 <td><?= $row['lp_dientich'] ?></td>
                                 <td>
@@ -103,9 +84,7 @@ if (!isset($_SESSION['user'])) {
                         ?>
                     </table>
                 </div>
-                <button>
-                    <a href="./add.php">Thêm loại phòng</a>
-                </button>
+                <a class="btn-save" href="./add.php">Thêm loại phòng</a>
             </div>
         </div>
     </main>

@@ -15,12 +15,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/vi.js"></script>
-
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.15.10/sweetalert2.all.js" integrity="sha512-39ZBE3xNYd9rnIrwuskSg4G8uP83q9BSM/G0xtHbNb3AXQx+MkiHH+e8bj5+WxB+jtixKID7NQS9zPJlVoLL/A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <?php
   include_once __DIR__ . "/css/head.php";
   include_once __DIR__ . "/css/chitiet_phong.php";
   include_once __DIR__ . "/css/styles.php";
+  include_once __DIR__ . '/loader.php';
   ?>
 
 </head>
@@ -71,13 +72,13 @@
                     <h3><?php echo $row['lp_ten'] ?></h3>
                     <p id="mota">Mô tả: <?php echo $row['lp_mota'] ?></p>
                     <p id="gia">Giá: <?= number_format($row['lp_gia'], 0, ',', '.') ?>&#8363</p>
-                    <p id="soluong">Số lượng: <?php 
-                      $sql_soluong = "SELECT COUNT(*) AS soluong FROM phong WHERE status = 'N' AND lp_id = $lp_id;";
-                      $result_soluong = mysqli_query($conn, $sql_soluong);
+                    <p id="soluong">Số lượng: <?php
+                                              $sql_soluong = "SELECT COUNT(*) AS soluong FROM phong WHERE status = 'N' AND lp_id = $lp_id;";
+                                              $result_soluong = mysqli_query($conn, $sql_soluong);
 
-                      $row_soluong = mysqli_fetch_assoc($result_soluong);
-                      echo $row_soluong['soluong'];
-                    ?></p>
+                                              $row_soluong = mysqli_fetch_assoc($result_soluong);
+                                              echo $row_soluong['soluong'];
+                                              ?></p>
                     <a href="index.php" class="btn-back">Quay lại</a>
                     <a href="#thongtin_datphong" class="btn">Đặt phòng</a>
                   </div>
@@ -144,9 +145,9 @@
             </div>
             <div>
               <label for="">Số lượng người(*):</label>
-              <input type="number" class="form-control" id="songuoi" name="songuoi" required>
+              <input value="1" type="number" class="form-control" id="songuoi" name="songuoi" required>
               <label for="">Số lượng phòng(*):</label>
-              <input type="number" class="form-control" id="soluongphong" name="soluongphong" required>
+              <input value="1" type="number" class="form-control" id="soluongphong" name="soluongphong" required>
             </div>
             <div>
               <label for="">Yêu cầu khác:</label><br>
@@ -157,30 +158,18 @@
               <label for="agree">Đồng ý với điều khoản đặt phòng</label>
             </div>
             <div>
-              <form action="">
-                <button class="btn">Xác nhận đặt phòng</button>
-              </form>
-            </div>
-
-          </div>
+              <button onclick="kiemTraNgay()" class="btn">Xác nhận đặt phòng</button>
+        </form>
       </div>
+
+    </div>
+    </div>
   </main>
   <?php
   include_once __DIR__ . "/bocucchinh/footer.php";
   ?>
 
-  <script src="/js/app.js"></script>
-  <script>
-    flatpickr("#ngaynhan", {
-      dateFormat: "d-m-Y",
-      locale: "vi"
-    });
-
-    flatpickr("#ngaytra", {
-      dateFormat: "d-m-Y",
-      locale: "vi"
-    });
-  </script>
+  <script src="js/app.js"></script>
   <?php
   $lp_id = $_GET['lp_id'];
 
@@ -203,11 +192,26 @@
       $khachhang_id = mysqli_insert_id($conn); // Lấy ID của khách hàng vừa chèn
 
       $sql = "INSERT INTO datphong (lp_id, kh_id, dp_ngayden, dp_ngaydi, dp_soluong_khach, dp_soluong_phong, datphong_yc, status) VALUES ('$lp_id', '$khachhang_id', '$ngaynhan', '$ngaytra', '$songuoi', '$soluongphong', '$yeucau', '$status')";
-      
+
       if (mysqli_query($conn, $sql)) {
-        echo "Đặt phòng thành công";
+        echo '<script> 
+        Swal.fire({
+          title: "Đặt phòng thành công!",
+          icon: "success",
+          draggable: true
+        });
+        setTimeout(function(){
+          location.href = "popup.php";
+        }, 3000);
+        </script>';
       } else {
-        echo "Đặt phòng thất bại";
+        echo '<script> 
+        Swal.fire({
+          icon: "error",
+          title: "Lỗi",
+          text: "Không thể đặt phòng!",
+        });
+        </script>';
       }
     }
   }

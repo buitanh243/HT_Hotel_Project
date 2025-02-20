@@ -18,32 +18,10 @@ if (!isset($_SESSION['user'])) {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <link rel="stylesheet" href="css/head.css"> -->
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-        }
-    </style>
-
 </head>
 
 <body>
     <?php
-    include_once __DIR__ . "/bocuc/head.php";
-
     include_once __DIR__ . "/../connect/connect.php";
 
     $sql = "SELECT  dp.*, kh.*, lp.lp_ten
@@ -78,6 +56,8 @@ if (!isset($_SESSION['user'])) {
         <?php
         include_once __DIR__ . "/bocuc/head.php";
         include_once __DIR__ . "/bocuc/sidebar.php";
+        include_once __DIR__ . "/css/styles.php";
+
         ?>
         <div class="container">
             <h1>Yêu cầu đặt phòng</h1>

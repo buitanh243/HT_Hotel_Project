@@ -36,7 +36,7 @@
     }
 
     .content h1 {
-        padding-top: 20px ;
+        padding-top: 20px;
         animation: text-pop-up-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
 
@@ -241,9 +241,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 50px;
         width: 100%;
     }
+
 
 
     .product {
@@ -255,6 +256,10 @@
     }
 
     /* card room */
+    #card_room {
+        scroll-margin-top: 100px;
+    }
+
     .card_room {
         width: 600px;
         margin: 20px;
@@ -325,11 +330,6 @@
         font-size: 1.2em;
         transition: 0.2s ease-in-out;
         opacity: 0;
-        cursor: pointer;
-    }
-
-    .card_data span:hover {
-        text-decoration: underline;
     }
 
     .text {
