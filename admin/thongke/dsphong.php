@@ -4,7 +4,7 @@
 include_once __DIR__ . "/../../connect/connect.php";
 session_start();
 if (!isset($_SESSION['user'])) {
-    header("Location: ./login.php");
+     header("Location: /admin/login.php");
 }
 ?>
 
@@ -209,8 +209,7 @@ if (!isset($_SESSION['user'])) {
                 <div class="content-4">
                     <div class="content_body4">
                         <?php foreach ($row4 as $r) { ?>
-                            + Phòng được đặt nhiều nhất: Phòng <?= $r['hd_tenphong'] ?>
-                            <label for="">(<?= $r['SL_nhieunhat'] ?> Hoá đơn )</label>
+                            <label for="">+ Phòng được đặt nhiều nhất: Phòng <?= $r['hd_tenphong'] ?><br>(<?= $r['SL_nhieunhat'] ?> Hoá đơn )</label>
                         <?php } ?>
                     </div>
                 </div>

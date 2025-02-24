@@ -86,7 +86,7 @@
                     <a href="/Hotel_Project/admin/thongke/dsphong.php">Thống kê danh sách phòng</a>
                 </li>
                 <li>
-                    <form class="form-lg" action="./Xuly/logout.php" method="POST">
+                    <form class="form-lg" action="/Hotel_Project/admin/Xuly/logout.php" method="POST">
                         <button class="logout" href="">Đăng xuất</button>
                     </form>
                 </li>

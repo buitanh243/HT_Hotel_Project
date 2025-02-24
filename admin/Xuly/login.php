@@ -1,6 +1,7 @@
 <?php 
     include_once __DIR__ . "/../../connect/connect.php";
     session_start();
+    
     if(isset($_POST['username']) && isset($_POST['password'])){
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -9,6 +10,7 @@
         if(mysqli_num_rows($result) > 0){
         $row = mysqli_fetch_assoc($result);
         $_SESSION['user'] = $row;
+        setcookie('logined', 1 , time() + 300, '/');
         header('Location: ./../index.php');
         }else{
             header('Location: popup.php');
